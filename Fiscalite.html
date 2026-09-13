@@ -3,500 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Learning Pro | الأكاديمية الجبائية الشاملة</title>
-    <!-- Tailwind CSS -->
+    <title>E-Learning Pro | بوابة المراجعة الشاملة</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            font-family: 'Tajawal', sans-serif; 
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); 
-            min-height: 100vh; 
-            overflow-x: hidden;
-            color: #1e293b;
-        }
+        body { background-color: #f8fafc; overflow-x: hidden; }
+        .font-ar { font-family: 'Tajawal', sans-serif; }
+        .font-fr { font-family: 'Poppins', sans-serif; }
         
-        /* Glass & Infographic Styles */
-        .glass-panel { 
-            background: rgba(255, 255, 255, 0.95); 
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08); 
-            border-radius: 1.5rem; 
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        
-        .info-card { 
-            background: white; 
-            border-radius: 1.5rem; 
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05); 
-            border: 1px solid rgba(226, 232, 240, 0.8); 
-            transition: all 0.4s ease; 
-        }
+        .info-card { background: white; border-radius: 1.5rem; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05); border: 1px solid rgba(226, 232, 240, 0.8); transition: all 0.4s ease; }
         .info-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1); }
+        .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Animations */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .fade-in { animation: fadeIn 0.5s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* Quiz Buttons */
         .quiz-btn { transition: all 0.3s ease; border: 2px solid #e2e8f0; }
-        .quiz-btn:hover:not(:disabled) { border-color: #3b82f6; background-color: #eff6ff; transform: scale(1.01); }
+        .quiz-btn:hover:not(:disabled) { border-color: #3b82f6; background-color: #eff6ff; transform: scale(1.02); }
         .correct-ans { background-color: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46 !important; }
         .wrong-ans { background-color: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
 
-        /* Scrollbar */
+        .subject-btn { transition: all 0.3s ease; }
+        .subject-btn.active { background-color: #1e40af; color: white; box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.3); }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="pb-20">
+<body class="font-ar pb-20 text-gray-800">
 
     <!-- Header / Navbar -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-800 to-indigo-900 flex items-center justify-center text-white shadow-lg">
-                    <i class="fas fa-balance-scale text-2xl"></i>
+                <div class="w-12 h-12 rounded-full bg-blue-800 flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-university text-2xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-extrabold text-gray-800 tracking-tight">الضرائب<span class="text-blue-600">برو</span></h1>
-                    <p class="text-xs text-gray-500 font-bold tracking-wider">المدرسة الوطنية للضرائب</p>
+                    <h1 class="text-2xl font-bold tracking-tight">أكاديمية <span class="text-blue-600">الضرائب والإعلام الآلي</span></h1>
                 </div>
             </div>
             
-            <div class="flex bg-gray-100 p-1.5 rounded-2xl">
-                <button onclick="switchTab('lessons')" id="tab-lessons" class="px-6 py-2.5 rounded-xl font-bold bg-blue-800 text-white shadow-md transition-all flex items-center">
-                    <i class="fas fa-layer-group ml-2"></i> ملخص المقاييس
+            <div class="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto" dir="rtl">
+                <button onclick="switchSubject('it')" id="btn-sub-it" class="subject-btn flex-1 md:flex-none px-6 py-2.5 rounded-xl font-bold text-sm text-gray-600 font-fr">
+                    <i class="fas fa-laptop-code mr-2"></i> Informatique
                 </button>
-                <button onclick="switchTab('quiz')" id="tab-quiz" class="px-6 py-2.5 rounded-xl font-bold bg-transparent text-gray-600 hover:bg-white shadow-none transition-all flex items-center">
-                    <i class="fas fa-check-circle ml-2"></i> التقييم الشامل (20 سؤال)
+                <button onclick="switchSubject('tax')" id="btn-sub-tax" class="subject-btn active flex-1 md:flex-none px-6 py-2.5 rounded-xl font-bold text-sm text-gray-600">
+                    <i class="fas fa-balance-scale ml-2"></i> النظام الجبائي
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-4 mt-12">
+    <!-- ========================================================================= -->
+    <!-- ======================= SECTION 1: النظام الجبائي ======================= -->
+    <!-- ========================================================================= -->
+    <main id="subject-tax" class="max-w-6xl mx-auto px-4 mt-8 block font-ar" dir="rtl">
+        <div class="flex justify-center gap-4 mb-8">
+            <button onclick="switchTab('tax', 'lessons')" id="tab-tax-lessons" class="px-6 py-2.5 rounded-xl font-bold bg-blue-800 text-white shadow-md transition-all">
+                <i class="fas fa-layer-group ml-2"></i> ملخص المقاييس الجبائية
+            </button>
+            <button onclick="switchTab('tax', 'quiz')" id="tab-tax-quiz" class="px-6 py-2.5 rounded-xl font-bold bg-white text-gray-600 border border-gray-200 transition-all hover:bg-gray-50">
+                <i class="fas fa-check-circle ml-2"></i> التقييم الشامل (20 سؤال)
+            </button>
+        </div>
 
-        <!-- ========================================================================= -->
-        <!-- ======================= SECTION 1: LESSONS ============================ -->
-        <!-- ========================================================================= -->
-        <div id="lessons-section" class="block">
-            <div class="text-center mb-16 reveal active">
-                <span class="text-blue-600 font-bold tracking-wider uppercase text-sm bg-blue-100 px-4 py-1 rounded-full">التحضير للامتحانات المهنية (تحديث 2026)</span>
+        <div id="tax-lessons" class="block">
+            <div class="text-center mb-12 reveal active">
+                <span class="text-blue-600 font-bold tracking-wider uppercase text-sm bg-blue-100 px-4 py-1 rounded-full">التحضير للامتحانات المهنية</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-gray-800">النظام <span class="text-blue-600">الجبائي</span> الجزائري</h2>
-                <p class="text-gray-500 text-lg max-w-3xl mx-auto">خريطة بصرية شاملة لجميع المقاييس: الوعاء، التحصيل، الرقابة، التسجيل، الطابع، المنازعات، وأخلاقيات المهنة.</p>
+                <p class="text-gray-500 text-lg max-w-3xl mx-auto">خريطة بصرية شاملة لجميع المقاييس بما فيها أخلاقيات المهنة.</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8">
                 
-                <!-- 1. المدخل العام والضريبة على أرباح الشركات -->
-                <div class="info-card p-8 reveal border-t-4 border-t-blue-600">
-                    <h3 class="text-2xl font-bold text-blue-900 mb-6 border-b pb-3"><i class="fas fa-sitemap ml-2 text-blue-600"></i> 1. المدخل للنظام الجبائي و IBS</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-blue-500 ml-2"></i><strong>الضريبة:</strong> اقتطاع نقدي إلزامي نهائي تفرضه الدولة دون مقابل خاص مباشر لتمويل النفقات العامة[cite: 5, 23].</li>
-                        <li><i class="fas fa-caret-left text-blue-500 ml-2"></i><strong>قواعد آدم سميث:</strong> العدالة، اليقين، الملاءمة في التحصيل، والاقتصاد في التحصيل[cite: 5, 23].</li>
-                        <li><i class="fas fa-caret-left text-blue-500 ml-2"></i><strong>الضريبة على أرباح الشركات (IBS):</strong> تفرض إجبارياً على شركات الأموال، واختيارياً لشركات الأشخاص (خيار غير قابل للرجوع)[cite: 5, 23].</li>
-                        <li><i class="fas fa-caret-left text-blue-500 ml-2"></i><strong>معدلات IBS:</strong> 19% لإنتاج السلع، 23% للبناء والأشغال والسياحة، 26% للخدمات والأنشطة الأخرى[cite: 5, 23].</li>
-                        <li class="bg-blue-50 p-3 rounded-lg border border-blue-100"><i class="fas fa-calculator text-blue-500 ml-2"></i><strong>النتيجة الجبائية:</strong> تساوي النتيجة المحاسبية + الأعباء المعاد إدماجها - الخصومات الجبائية[cite: 5, 23].</li>
+                <!-- 1. المدخل العام -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-blue-900 mb-4 border-b pb-2"><i class="fas fa-sitemap ml-2"></i> 1. المدخل للنظام الجبائي و IBS</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-blue-500 ml-2"></i><strong>الضريبة:</strong> اقتطاع نقدي إلزامي نهائي تفرضه الدولة دون مقابل خاص مباشر[cite: 5, 23].</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-500 ml-2"></i><strong>قواعد آدم سميث:</strong> العدالة، اليقين، الملاءمة في التحصيل، والاقتصاد[cite: 5, 23].</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-500 ml-2"></i><strong>IBS:</strong> ضريبة سنوية تفرض إجبارياً على شركات الأموال واختيارياً لشركات الأشخاص[cite: 5, 23].</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-500 ml-2"></i><strong>معدلات IBS:</strong> 19% (الإنتاج)، 23% (بناء/سياحة)، 26% (الخدمات)[cite: 5, 23].</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-500 ml-2"></i><strong>النتيجة الجبائية =</strong> النتيجة المحاسبية + الأعباء المعاد إدماجها - الخصومات[cite: 5, 23].</li>
                     </ul>
                 </div>
 
-                <!-- 2. الرسم على القيمة المضافة والضرائب غير المباشرة -->
-                <div class="info-card p-8 reveal border-t-4 border-t-green-600">
-                    <h3 class="text-2xl font-bold text-green-900 mb-6 border-b pb-3"><i class="fas fa-shopping-cart ml-2 text-green-600"></i> 2. الـ TVA والضرائب غير المباشرة</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-green-500 ml-2"></i><strong>الضرائب غير المباشرة:</strong> تستهدف عمليات الاستهلاك وتندمج في السعر النهائي ليتحملها المستهلك. تُحصّل عبر وسطاء قانونيين[cite: 11, 20].</li>
-                        <li><i class="fas fa-caret-left text-green-500 ml-2"></i><strong>رسم المرور الإضافي:</strong> يفرض بنسبة 7% من قيمة رسم المرور الأساسي المستحق[cite: 11, 20].</li>
-                        <li><i class="fas fa-caret-left text-green-500 ml-2"></i><strong>الرسم على القيمة المضافة (TVA):</strong> ضريبة تفرض في مراحل الإنتاج والتوزيع. المعدل العادي 19% والمخفض 9%[cite: 14, 16].</li>
-                        <li><i class="fas fa-caret-left text-green-500 ml-2"></i><strong>الحدث المنشئ لـ TVA:</strong> التسليم المادي (للمبيعات)، الإدخال الجمركي (للواردات)، وقبض الثمن (للأشغال والخدمات)[cite: 14, 16].</li>
-                        <li class="bg-green-50 p-3 rounded-lg border border-green-100"><i class="fas fa-exchange-alt text-green-500 ml-2"></i><strong>معامل التحويل (TVA 19%):</strong> للانتقال من TTC إلى HT نقوم بالعملية: <code>TTC × 100 ÷ 119</code>[cite: 14, 16].</li>
+                <!-- 2. TVA -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-green-900 mb-4 border-b pb-2"><i class="fas fa-shopping-cart ml-2"></i> 2. الـ TVA والضرائب غير المباشرة</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-green-500 ml-2"></i><strong>الضرائب غير المباشرة:</strong> تستهدف الاستهلاك وتُحصّل عبر وسطاء ليتحملها المستهلك النهائي[cite: 11, 20].</li>
+                        <li><i class="fas fa-circle text-[8px] text-green-500 ml-2"></i><strong>الـ TVA:</strong> تفرض على القيمة المضافة في مراحل الإنتاج والتوزيع (المعدلات 19% و 9%)[cite: 14, 16].</li>
+                        <li><i class="fas fa-circle text-[8px] text-green-500 ml-2"></i><strong>الحدث المنشئ:</strong> في المبيعات هو التسليم، وفي الخدمات هو القبض، وفي الواردات هو الإدخال الجمركي[cite: 14, 16].</li>
+                        <li><i class="fas fa-circle text-[8px] text-green-500 ml-2"></i><strong>الرسم الجزافي للتبغ:</strong> يقتطع بنسبة 5% وليس 10%[cite: 11, 20].</li>
                     </ul>
                 </div>
 
-                <!-- 3. قانون التسجيل والطابع -->
-                <div class="info-card p-8 reveal border-t-4 border-t-purple-600">
-                    <h3 class="text-2xl font-bold text-purple-900 mb-6 border-b pb-3"><i class="fas fa-stamp ml-2 text-purple-600"></i> 3. قانون التسجيل والطابع</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-purple-500 ml-2"></i><strong>نقل العقارات:</strong> بيع العقارات يخضع لإجراء مزدوج (موثق وشهر عقاري) ولرسم تسجيل نسبي قدره 5%[cite: 7, 22].</li>
-                        <li><i class="fas fa-caret-left text-purple-500 ml-2"></i><strong>التبادلات:</strong> إذا تساوت القيم يخضع للتبادل (2.5%). الفائض يُضاف للحصة الأكبر ويخضع لحق التحويل (5% للعقار)[cite: 7, 22].</li>
-                        <li><i class="fas fa-caret-left text-purple-500 ml-2"></i><strong>الطابع الحجمي:</strong> تسعيرة ورق السجل ذو الأبعاد 0.54 × 0.42 م هي 80 دج[cite: 3, 18].</li>
-                        <li><i class="fas fa-caret-left text-purple-500 ml-2"></i><strong>طابع المخالصات:</strong> المبالغ فوق 100,000 دج يُطبق عليها 2 دج عن كل 100 دج. (تُجبر الكسور لـ 100 دج كاملة)[cite: 3, 18].</li>
-                        <li class="bg-purple-50 p-3 rounded-lg border border-purple-100"><i class="fas fa-car text-purple-500 ml-2"></i><strong>قسيمة السيارات:</strong> لحسابها نستخرج: (1) نوع السيارة، (2) القوة الجبائية، (3) تاريخ الوضع في السير[cite: 3, 18].</li>
+                <!-- 3. التحصيل -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-orange-900 mb-4 border-b pb-2"><i class="fas fa-cash-register ml-2"></i> 3. التحصيل الجبائي والصندوق</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-orange-500 ml-2"></i><strong>شروط التحصيل:</strong> وجود الدين، استحقاقه، وعدم تقادمه[cite: 8, 9, 24].</li>
+                        <li><i class="fas fa-circle text-[8px] text-orange-500 ml-2"></i><strong>رزنامة الدفع:</strong> مدتها القصوى 60 شهراً بدفعة أولية 5% كحد أدنى[cite: 8, 9, 24].</li>
+                        <li><i class="fas fa-circle text-[8px] text-orange-500 ml-2"></i><strong>التحصيل القسري:</strong> التنبيه (R09)، الحجز، الغلق (6 أشهر كحد أقصى)، وإشعار الغير الحائز (ATD)[cite: 8, 9, 24].</li>
+                        <li><i class="fas fa-circle text-[8px] text-orange-500 ml-2"></i><strong>سجلات الصندوق:</strong> H1 (نقداً)، H2 (شيك)، H3 (بريد)، H5 (نفقات)[cite: 8, 9, 24].</li>
+                        <li><i class="fas fa-circle text-[8px] text-orange-500 ml-2"></i><strong>التأجيل القانوني:</strong> يستوجب دفع 20% من الجزء المتنازع عليه[cite: 8, 9, 24].</li>
                     </ul>
                 </div>
 
-                <!-- 4. التحصيل الجبائي ومصلحة الصندوق -->
-                <div class="info-card p-8 reveal border-t-4 border-t-orange-500">
-                    <h3 class="text-2xl font-bold text-orange-900 mb-6 border-b pb-3"><i class="fas fa-cash-register ml-2 text-orange-500"></i> 4. التحصيل الجبائي ومصلحة الصندوق</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-orange-500 ml-2"></i><strong>شروط التحصيل:</strong> وجود الدين (سند قانوني)، استحقاقه، وعدم تقادمه للمطالبة به قانوناً[cite: 8, 24].</li>
-                        <li><i class="fas fa-caret-left text-orange-500 ml-2"></i><strong>رزنامة الدفع:</strong> مدتها القصوى 60 شهراً، وتشترط دفعة أولية 5% كحد أدنى من إجمالي الدين[cite: 8, 24].</li>
-                        <li><i class="fas fa-caret-left text-orange-500 ml-2"></i><strong>التأجيل القانوني:</strong> يُؤجل التحصيل بدفع 20% من الحقوق المتنازع عليها أو تقديم ضمانات[cite: 8, 24].</li>
-                        <li><i class="fas fa-caret-left text-orange-500 ml-2"></i><strong>التحصيل القسري:</strong> يبدأ بالتنبيه (R09) بمهلة 15 يوماً. تليه إجراءات كالغلق (أقصاه 6 أشهر)، الحجز، والـ ATD[cite: 8, 24].</li>
-                        <li class="bg-orange-50 p-3 rounded-lg border border-orange-100"><i class="fas fa-book text-orange-500 ml-2"></i><strong>سجلات الصندوق:</strong> H1 للإيرادات النقدية، H2 للشيكات، H3 للبريد (CCP)، و H5 للنفقات[cite: 8, 24].</li>
+                <!-- 4. الرقابة -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-red-900 mb-4 border-b pb-2"><i class="fas fa-search-dollar ml-2"></i> 4. الرقابة والتحقيق الجبائي</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-red-500 ml-2"></i><strong>التحقيق في المحاسبة (VC):</strong> فحص ميداني شامل يستغرق من 3 إلى 9 أشهر[cite: 12, 13, 17, 21].</li>
+                        <li><i class="fas fa-circle text-[8px] text-red-500 ml-2"></i><strong>التحقيق المصوب (VPC):</strong> فحص محدد لضريبة/فترة لا يتجاوز شهرين[cite: 12, 13, 17, 21].</li>
+                        <li><i class="fas fa-circle text-[8px] text-red-500 ml-2"></i><strong>حق الاطلاع:</strong> جمع المعلومات من الإدارات والبنوك دون التذرع بالسر المهني[cite: 12, 13, 17, 21].</li>
+                        <li><i class="fas fa-circle text-[8px] text-red-500 ml-2"></i><strong>إشعار التسوية (C4):</strong> يمنح المكلف 30 يوماً قانونياً للرد وتبرير موقفه[cite: 12, 13, 17, 21].</li>
                     </ul>
                 </div>
 
-                <!-- 5. الرقابة والتحقيق الجبائي -->
-                <div class="info-card p-8 reveal border-t-4 border-t-red-600">
-                    <h3 class="text-2xl font-bold text-red-900 mb-6 border-b pb-3"><i class="fas fa-search-dollar ml-2 text-red-600"></i> 5. الرقابة والتحقيق الجبائي</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-red-500 ml-2"></i><strong>التحقيق في المحاسبة (VC):</strong> فحص ميداني شامل بمقر المؤسسة يمتد من 3 إلى 9 أشهر[cite: 12, 17].</li>
-                        <li><i class="fas fa-caret-left text-red-500 ml-2"></i><strong>التحقيق المصوب (VPC):</strong> فحص محدد لضريبة/فترة معينة. لا يتجاوز شهرين مهما كان رقم الأعمال[cite: 12, 17].</li>
-                        <li><i class="fas fa-caret-left text-red-500 ml-2"></i><strong>حق الاطلاع:</strong> الحصول على معلومات من الإدارات والبنوك لمقارنة التصريحات دون فحص شامل للمحاسبة[cite: 12, 17].</li>
-                        <li><i class="fas fa-caret-left text-red-500 ml-2"></i><strong>إشعار التسوية (C4):</strong> يُرسل للمكلف ويمنحه أجلاً قانونياً مدته 30 يوماً للرد وتبرير موقفه[cite: 12, 17].</li>
-                        <li class="bg-red-50 p-3 rounded-lg border border-red-100"><i class="fas fa-clock text-red-500 ml-2"></i><strong>حق استدراك الأخطاء (التقادم):</strong> الأجل العادي للإدارة لطلب التصحيح هو 4 سنوات[cite: 13, 21].</li>
+                <!-- 5. التسجيل والطابع -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-purple-900 mb-4 border-b pb-2"><i class="fas fa-stamp ml-2"></i> 5. قانون التسجيل والطابع</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-purple-500 ml-2"></i><strong>نقل العقارات:</strong> بيع العقارات يخضع لرسم نسبي قدره 5%[cite: 7, 22].</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-500 ml-2"></i><strong>تأسيس الشركات:</strong> الحصص المحضة تخضع لـ 0.5% (بحد أدنى 10,000 دج لشركات الأسهم)[cite: 7, 22].</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-500 ml-2"></i><strong>الطابع الحجمي:</strong> ورق السجل (0.54 × 0.42) يخضع لـ 80 دج[cite: 3, 4, 18].</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-500 ml-2"></i><strong>طابع المخالصات:</strong> تُجبر الكسور المتبقية بعد القسمة على 100 دج إلى 100 دج كاملة[cite: 3, 4, 18].</li>
                     </ul>
                 </div>
 
-                <!-- 6. المنازعات الضريبية -->
-                <div class="info-card p-8 reveal border-t-4 border-t-teal-600">
-                    <h3 class="text-2xl font-bold text-teal-900 mb-6 border-b pb-3"><i class="fas fa-gavel ml-2 text-teal-600"></i> 6. المنازعات الضريبية</h3>
-                    <ul class="space-y-4 text-sm text-gray-700 leading-relaxed">
-                        <li><i class="fas fa-caret-left text-teal-500 ml-2"></i><strong>منازعة الوعاء:</strong> نزاع يتعلق بأساس الضريبة، تأسيسها، وحسابها (مثل خطأ في تطبيق الإعفاء أو النسبة)[cite: 10, 19].</li>
-                        <li><i class="fas fa-caret-left text-teal-500 ml-2"></i><strong>منازعة التحصيل:</strong> نزاع يتعلق بإجراءات المتابعة (مثل الحجز)، استحقاق الدين، والمطالبة به[cite: 10, 19].</li>
-                        <li><i class="fas fa-caret-left text-teal-500 ml-2"></i><strong>الشكوى الناقصة شكلاً:</strong> لا تُرفض فوراً؛ بل يُستدعى المكلف ويُمنح أجل 30 يوماً لاستكمالها[cite: 10, 19].</li>
-                        <li><i class="fas fa-caret-left text-teal-500 ml-2"></i><strong>لجان الطعن:</strong> طعن إداري اختياري (لجنة ولائية، جهوية، ومركزية). تبلغ قرارها خلال 10 أيام من اختتام أشغالها[cite: 10, 19].</li>
+                <!-- 6. المنازعات -->
+                <div class="info-card p-6 reveal">
+                    <h3 class="text-xl font-bold text-teal-900 mb-4 border-b pb-2"><i class="fas fa-gavel ml-2"></i> 6. المنازعات الضريبية</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li><i class="fas fa-circle text-[8px] text-teal-500 ml-2"></i><strong>منازعة الوعاء:</strong> ترتبط بأساس الضريبة وتأسيسها (مثل خطأ في النسبة)[cite: 10, 19].</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-500 ml-2"></i><strong>منازعة التحصيل:</strong> تتعلق بإجراءات المتابعة واستحقاق الدين[cite: 10, 19].</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-500 ml-2"></i><strong>الشكوى الناقصة شكلاً:</strong> لا تُرفض فوراً بل يمنح المكلف أجل 30 يوماً لاستكمالها[cite: 10, 19].</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-500 ml-2"></i><strong>لجان الطعن:</strong> طعن اختياري قبل اللجوء إلى المحكمة الإدارية[cite: 10, 19].</li>
                     </ul>
                 </div>
 
-                <!-- 7. أخلاقيات المهنة والمسؤولية -->
-                <div class="info-card p-8 reveal md:col-span-2 bg-gradient-to-l from-slate-900 to-gray-800 text-white border-t-4 border-t-yellow-400">
-                    <h3 class="text-2xl font-bold text-yellow-400 mb-6 border-b border-gray-600 pb-3"><i class="fas fa-user-shield ml-2"></i> 7. أخلاقيات المهنة والمسؤولية لموظفي الإدارة الجبائية</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <ul class="space-y-4 text-sm text-gray-200">
-                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>الأخلاقيات (Ethique):</strong> تمثل منهجاً تطبيقياً للقيم (Morale) لتحقيق غاية في سياق مهني أو مؤسساتي محدد[cite: 15].</li>
-                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>ممارسة الوظيفة:</strong> يُمنع الجمع بين وظيفة الضرائب وأي نشاط مربح خاص، باستثناء (مهام البحث، التكوين، والإنتاج العلمي)[cite: 15].</li>
-                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>السر المهني:</strong> الالتزام المطلق بكتمان معلومات المكلفين. يعاقب قانون العقوبات (المادة 301) المخالفين بالحبس والغرامة[cite: 15].</li>
+                <!-- 7. أخلاقيات المهنة -->
+                <div class="info-card p-6 reveal md:col-span-2 bg-gradient-to-r from-slate-800 to-gray-900 text-white">
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4 border-b border-gray-600 pb-2"><i class="fas fa-user-shield ml-2"></i> 7. أخلاقيات المهنة والمسؤولية للإدارة الجبائية</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>الأخلاقيات (Ethique):</strong> منهج تطبيقي للقيم والأخلاق لتحقيق غاية في سياق مهني[cite: 15].</li>
+                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>ممارسة الوظيفة بصفة فعلية:</strong> يُمنع الجمع بين الوظيفة ونشاط مربح (باستثناء التكوين والبحث)[cite: 15].</li>
+                            <li><i class="fas fa-check text-green-400 ml-2"></i><strong>السر المهني:</strong> الالتزام بعدم إفشاء وثائق المكلفين، ويعاقب المخالف بالحبس والغرامة (المادة 301)[cite: 15].</li>
                         </ul>
-                        <ul class="space-y-4 text-sm text-gray-200 md:border-r border-gray-600 md:pr-6 mt-6 md:mt-0">
-                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية المدنية:</strong> يتحمل الموظف التعويض عن أخطائه الشخصية (المنفصلة)، بينما تتحمل الإدارة الأخطاء المرفقية (المرتبطة بتطبيق الأوامر)[cite: 15].</li>
-                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية الجزائية:</strong> تشمل الرشوة وجريمة الغدر. تشتد عقوبة الرشوة في الصفقات العمومية لتصل إلى السجن من 10 إلى 20 سنة[cite: 15].</li>
-                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية التأديبية:</strong> الأخطاء الجسيمة (الدرجة 3 و 4) تقابلها عقوبات التنزيل في الرتبة، النقل الإجباري، أو التسريح النهائي[cite: 15].</li>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية المدنية:</strong> يتحمل الموظف الخطأ الشخصي، وتتحمل الإدارة الخطأ المرفقي[cite: 15].</li>
+                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية الجزائية:</strong> الرشوة في الصفقات تصل عقوبتها من 10 إلى 20 سنة سجن[cite: 15].</li>
+                            <li><i class="fas fa-exclamation-triangle text-red-400 ml-2"></i><strong>المسؤولية التأديبية:</strong> الدرجة 3 و 4 تؤدي للتنزيل في الرتبة، النقل الإجباري أو التسريح النهائي[cite: 15].</li>
                         </ul>
                     </div>
                 </div>
 
             </div>
             
-            <div class="text-center mt-16 reveal">
-                <button onclick="switchTab('quiz')" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-12 rounded-xl shadow-lg transition-all transform hover:scale-105 flex items-center mx-auto text-lg">
-                    ابدأ التقييم الشامل (20 سؤال) <i class="fas fa-arrow-left mr-3"></i>
+            <div class="text-center mt-12 reveal">
+                <button onclick="switchTab('tax', 'quiz')" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all transform hover:-translate-y-1">
+                    ابدأ التقييم الشامل <i class="fas fa-arrow-left mr-2"></i>
                 </button>
             </div>
         </div>
 
-        <!-- ========================================================================= -->
-        <!-- ======================= SECTION 2: QUIZ =============================== -->
-        <!-- ========================================================================= -->
-        <div id="quiz-section" class="hidden">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 reveal gap-4">
-                <div>
-                    <h2 class="text-3xl font-extrabold text-gray-800">التقييم الجبائي الشامل</h2>
-                    <p class="text-gray-500 mt-1">اختبر معلوماتك في مقاييس الإدارة الجبائية بناءً على الحلول النموذجية.</p>
-                </div>
-                <div class="bg-white px-6 py-4 rounded-2xl border border-gray-200 flex items-center shadow-sm">
-                    <i class="fas fa-trophy text-yellow-400 text-4xl ml-4 drop-shadow-md"></i>
+        <!-- Quiz -->
+        <div id="tax-quiz" class="hidden">
+            <div class="flex justify-between items-center mb-8 reveal">
+                <h2 class="text-3xl font-extrabold text-gray-800">التقييم الجبائي الشامل</h2>
+                <div class="bg-white px-6 py-3 rounded-2xl border border-gray-200 flex items-center shadow-sm">
+                    <i class="fas fa-trophy text-yellow-400 text-3xl ml-4"></i>
                     <div class="flex flex-col text-left">
-                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-right">النقاط</span>
-                        <span class="text-4xl font-black text-blue-800 leading-none"><span id="score-tax">0</span></span>
+                        <span class="text-[10px] text-gray-400 font-bold uppercase text-right">النقاط</span>
+                        <span class="text-3xl font-black text-gray-800 leading-none"><span id="score-tax">0</span></span>
                     </div>
                 </div>
             </div>
-            
             <div class="mb-8 reveal">
-                <div class="flex justify-between text-sm font-bold text-gray-500 mb-2 px-1">
-                    <span id="progress-text">السؤال 1 من 20</span>
-                    <span id="progress-percentage" class="text-blue-600">0%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner overflow-hidden flex justify-end" dir="ltr">
-                    <div id="progress-tax" class="bg-gradient-to-l from-blue-400 to-blue-600 h-full transition-all duration-500 float-right shadow" style="width: 0%"></div>
+                <div class="w-full bg-gray-200 rounded-full h-3 flex justify-end" dir="ltr">
+                    <div id="progress-tax" class="bg-blue-600 h-full transition-all duration-500 float-right" style="width: 0%"></div>
                 </div>
             </div>
-            
             <div id="quiz-container-tax" class="info-card p-6 sm:p-10 reveal"></div>
-            
-            <div class="flex justify-start mt-8">
-                <button id="next-btn-tax" onclick="nextQuestion()" class="hidden bg-gray-800 hover:bg-black text-white font-bold py-4 px-8 rounded-xl shadow-lg transition duration-300 flex items-center transform hover:-translate-x-2">
-                    السؤال التالي <i class="fas fa-arrow-left mr-3"></i>
-                </button>
-            </div>
+            <button id="next-btn-tax" onclick="nextQuestion('tax')" class="hidden mt-6 bg-gray-800 text-white font-bold py-4 px-8 rounded-full">السؤال التالي <i class="fas fa-arrow-left mr-3"></i></button>
         </div>
-
     </main>
 
-    <!-- Scripts (Data & Logic) -->
-    <script>
-        // --- TABS LOGIC ---
-        function switchTab(tab) {
-            document.getElementById('lessons-section').style.display = tab === 'lessons' ? 'block' : 'none';
-            document.getElementById('quiz-section').style.display = tab === 'quiz' ? 'block' : 'none';
-            
-            const btnActive = 'bg-blue-800 text-white shadow-md border-transparent';
-            const btnInactive = 'bg-transparent text-gray-600 hover:bg-white border-transparent';
-            
-            document.getElementById('tab-lessons').className = `px-6 py-2.5 rounded-xl font-bold transition-all flex items-center ${tab === 'lessons' ? btnActive : btnInactive}`;
-            document.getElementById('tab-quiz').className = `px-6 py-2.5 rounded-xl font-bold transition-all flex items-center ${tab === 'quiz' ? btnActive : btnInactive}`;
-            
-            if (tab === 'quiz') {
-                state.q = 0; 
-                state.score = 0;
-                renderQuestion();
-            }
-            window.scrollTo(0, 0);
-            setTimeout(triggerReveals, 50);
-        }
+    <!-- ========================================================================= -->
+    <!-- ======================= SECTION 2: INFORMATIQUE ======================= -->
+    <!-- ========================================================================= -->
+    <main id="subject-it" class="max-w-5xl mx-auto px-4 mt-8 hidden font-fr" dir="ltr">
+        <!-- Tabs -->
+        <div class="flex justify-center gap-4 mb-8">
+            <button onclick="switchTab('it', 'lessons')" id="tab-it-lessons" class="px-6 py-2.5 rounded-xl font-bold bg-blue-600 text-white shadow-md transition-all">
+                <i class="fas fa-book-open mr-2"></i> Infographie
+            </button>
+            <button onclick="switchTab('it', 'quiz')" id="tab-it-quiz" class="px-6 py-2.5 rounded-xl font-bold bg-white text-gray-600 border border-gray-200 transition-all hover:bg-gray-50">
+                <i class="fas fa-gamepad mr-2"></i> Test Interactif
+            </button>
+        </div>
 
-        // --- QUIZ DATA & ENGINE ---
-        const questions = [
-            { 
-                q: "الضريبة على أرباح الشركات (IBS) تُعد ضريبة:", 
-                options: ["شهرية تفرض على المداخيل الإجمالية.", "سنوية تفرض على الأرباح الصافية للأشخاص المعنويين.", "غير مباشرة تدمج في الأسعار ويتحملها المستهلك."], 
-                a: 1, 
-                fb: "IBS هي ضريبة سنوية تفرض على الربح الجبائي (الصافي) للأشخاص المعنويين الخاضعين للنظام الحقيقي[cite: 5, 23]." 
-            },
-            { 
-                q: "ما هو معدل الـ IBS المطبق على نشاط «إنتاج السلع»؟", 
-                options: ["19%", "23%", "26%"], 
-                a: 0, 
-                fb: "يطبق معدل 19% على أنشطة إنتاج السلع، بينما 23% للبناء والسياحة، و26% للخدمات والأنشطة الأخرى[cite: 5, 23]." 
-            },
-            { 
-                q: "يخضع بيع العقارات لإجراءات الشهر العقاري ولرسم تسجيل نسبي قدره:", 
-                options: ["2%", "5%", "10%"], 
-                a: 1, 
-                fb: "يخضع بيع العقارات لرسم نسبي قدره 5%، ولا يستحق إلا إذا كان البيع تاماً ونهائياً[cite: 7, 22]." 
-            },
-            { 
-                q: "الضرائب غير المباشرة تفرض على:", 
-                options: ["الدخل والثروة مباشرة.", "عمليات التبادل التجاري والاستهلاك (تدمج في الأسعار).", "الشركات التجارية والخدمية فقط."], 
-                a: 1, 
-                fb: "الضرائب غير المباشرة تستهدف عمليات الاستهلاك وتُدمج في السعر النهائي ليتحملها المستهلك النهائي[cite: 11, 20]." 
-            },
-            { 
-                q: "ما هي المعدلات المطبقة في الرسم على القيمة المضافة (TVA) في الجزائر؟", 
-                options: ["19% (عادي) و 10% (مخفض)", "19% (عادي) و 9% (مخفض)", "17% (عادي) و 7% (مخفض)"], 
-                a: 1, 
-                fb: "يطبق الرسم على القيمة المضافة بمعدلين أساسيين: المعدل العادي 19% والمعدل المخفض 9%[cite: 14, 16]." 
-            },
-            { 
-                q: "متى يتم تحصيل «التأجيل القانوني للدفع» عند تقديم منازعة أو شكوى؟", 
-                options: ["يُطلب دفع 20% من الحقوق المتنازع عليها لضمان الخزينة.", "يُطلب دفع 50% من إجمالي ديون المكلف.", "يُمنح التأجيل تلقائياً وبدون دفع أي مبلغ مسبق."], 
-                a: 0, 
-                fb: "للاستفادة من التأجيل القانوني للدفع يجب دفع 20% من الحقوق المتنازع عليها أو تقديم ضمانات تغطي المبلغ[cite: 8, 24]." 
-            },
-            { 
-                q: "في مصلحة الصندوق التابعة للقباضة، يستعمل السجل المحاسبي (H1) لـ:", 
-                options: ["تسجيل الإيرادات عبر الصكوك البريدية (CCP).", "تسجيل النفقات أو مبالغ الصرف.", "تسجيل الإيرادات النقدية (دفع نقدي)."], 
-                a: 2, 
-                fb: "سجل H1 مخصص للصندوق - الإيرادات النقدية (100.002). بينما H2 للشيكات و H3 لـ CCP[cite: 8, 24]." 
-            },
-            { 
-                q: "التحقيق المصوب في المحاسبة (VPC) يتميز بأنه فحص محدد وسريع، ولا تتجاوز مدته عادة:", 
-                options: ["شهرين (مهما كان رقم الأعمال).", "6 أشهر.", "سنة واحدة."], 
-                a: 0, 
-                fb: "التحقيق المصوب هو فحص يقتصر على ضريبة أو فترة معينة ولا تتجاوز مدته شهرين مهما كان رقم الأعمال[cite: 12, 17]." 
-            },
-            { 
-                q: "«منازعة الوعاء» هي الشكوى التي تتعلق بـ:", 
-                options: ["مدى شرعية إجراءات المتابعة والتحصيل (مثل الحجز).", "أساس الضريبة، تأسيسها، وحسابها.", "التسجيل في السجل التجاري."], 
-                a: 1, 
-                fb: "منازعة الوعاء ترتبط بأساس الضريبة (مثل الاعتراض على رقم الأعمال أو النسبة أو الإعفاء)[cite: 10, 19]." 
-            },
-            { 
-                q: "ما هو «الحدث المنشئ» لرسم الطابع للعقود المحررة داخل الجزائر؟", 
-                options: ["أول استعمال لها.", "تاريخ تحرير العقد فعلياً (تاريخ إنشائه وتوقيعه).", "تاريخ تسجيل العقد بالمحكمة."], 
-                a: 1, 
-                fb: "الحدث المنشئ للعقود المحررة داخل الجزائر هو تاريخ تحرير العقد فعلياً وتوقيعه[cite: 3, 18]." 
-            },
-            { 
-                q: "كيف يُحسب الطابع النسبي للأوراق التجارية (السفتجة، السند لأمر)؟", 
-                options: ["80 دج لكل ورقة مهما كان المبلغ.", "1 دج عن كل 100 دج أو جزء منها.", "2% من الأرباح الصافية."], 
-                a: 1, 
-                fb: "تخضع الأوراق التجارية للرسم النسبي: 1 دج عن كل 100 دج أو جزء منها[cite: 3, 18]." 
-            },
-            { 
-                q: "ماذا يعني «مبدأ التضامن» في أداء رسم الطابع والغرامات؟", 
-                options: ["أن الإدارة تستطيع مطالبة أي شخص من الملزمين قانوناً بأداء كامل الرسم.", "الإعفاء التام من دفع الغرامة إذا تعدد الأطراف.", "دفع جزء متساوٍ فقط بين الأطراف."], 
-                a: 0, 
-                fb: "في حالة التضامن، تستطيع الإدارة مطالبة أي شخص ملزم بأداء كامل الرسم، وله حق الرجوع على البقية[cite: 3, 18]." 
-            },
-            { 
-                q: "كم تبلغ تسعيرة «الطابع الحجمي» لورق السجل ذو الأبعاد (0.54 × 0.42 م)؟", 
-                options: ["30 دج", "60 دج", "80 دج"], 
-                a: 2, 
-                fb: "يحدد قانون الطابع تسعيرة ورق السجل (0.54 × 0.42 م) بـ 80 دج[cite: 3, 18]." 
-            },
-            { 
-                q: "في طابع المخالصات، كيف تتعامل الإدارة الجبائية مع الكسور المتبقية بعد القسمة على 100 دج؟", 
-                options: ["تُهمل تماماً.", "تُجبر إلى 100 دج كاملة.", "تُحسب كنسبة مئوية."], 
-                a: 1, 
-                fb: "القاعدة الأساسية للحساب: إذا بقي جزء من 100 دج بعد القسمة، فإنه يُجبر إلى 100 دج كاملة[cite: 3, 18]." 
-            },
-            { 
-                q: "ما هي المعطيات الثلاثة الضرورية لاستخراج قيمة «قسيمة السيارة» من الجدول الدلالي؟", 
-                options: ["الوزن الإجمالي، عدد المقاعد، وقيمة التأمين.", "اللون، نوع الوقود، ورقم التسجيل.", "النوع (طبيعة السيارة)، القوة الجبائية بالحصان، وتاريخ أول وضع في السير (العمر)."], 
-                a: 2, 
-                fb: "لحساب قسيمة السيارات نحدد: (1) النوع، (2) القوة الجبائية، (3) تاريخ أول وضع في السير[cite: 3, 18]." 
-            },
-            { 
-                q: "ما هو الفرق بين الأخلاق (Morale) والأخلاقيات (Ethique) في الإدارة الجبائية؟", 
-                options: ["الأخلاقيات (Ethique) تمثل منهجاً تطبيقياً للقيم لتحقيق غاية في سياق مهني محدد.", "الأخلاق تطبق في العمل والأخلاقيات في المجتمع.", "لا يوجد أي فرق قانوني أو تطبيقي بينهما."], 
-                a: 0, 
-                fb: "الأخلاقيات تمثل تطبيقاً للقواعد في بيئة العمل لتحقيق غايات مهنية ومؤسساتية محددة[cite: 15]." 
-            },
-            { 
-                q: "هل يُسمح لموظف الضرائب بممارسة نشاط مربح خاص خارج أوقات العمل؟", 
-                options: ["نعم، بشرط أن يكون النشاط خارج أوقات الدوام.", "يُمنع ذلك منعاً باتاً، باستثناء مهام التكوين والبحث والإنتاج العلمي والأدبي.", "نعم، بشرط التصريح به للإدارة."], 
-                a: 1, 
-                fb: "يُمنع الجمع بين الوظيفة وأي نشاط مربح خاص مع استثناء مهام البحث والتكوين والإنتاج العلمي[cite: 15]." 
-            },
-            { 
-                q: "ما هي العقوبة المقررة لإفشاء «السر المهني» من طرف عون الضرائب؟", 
-                options: ["التوبيخ أو الإنذار الكتابي فقط.", "الحبس والغرامة المالية وفقاً للمادة 301 من قانون العقوبات.", "النقل الإجباري إلى ولاية أخرى."], 
-                a: 1, 
-                fb: "عاقب قانون العقوبات (المادة 301) مخالفي السر المهني بالحبس والغرامة المالية[cite: 15]." 
-            },
-            { 
-                q: "الخطأ التأديبي الجسيم (من الدرجة الثالثة أو الرابعة) مثل التزوير أو تلقي امتيازات، يؤدي إلى عقوبات منها:", 
-                options: ["التنبيه الشفهي أو التوبيخ.", "التنزيل في الرتبة، النقل الإجباري، أو التسريح النهائي (العزل).", "التوقيف عن العمل لمدة 3 أيام فقط."], 
-                a: 1, 
-                fb: "الأخطاء من الدرجة 3 و 4 تطبق عليها عقوبات مشددة تشمل التنزيل في الدرجات، النقل الإجباري، والتسريح النهائي[cite: 15]." 
-            },
-            { 
-                q: "في الإدارة الجبائية، ماذا تعني «المسؤولية المدنية» للموظف؟", 
-                options: ["التعرض لعقوبات جزائية كالسجن.", "تحمل الموظف شخصياً مسؤولية الأخطاء (المنفصلة عن المصلحة) التي تسبب ضرراً للغير.", "تحمل الإدارة لجميع الأخطاء بدون استثناء."], 
-                a: 1, 
-                fb: "يتحمل الموظف المسؤولية المدنية عن الأخطاء الشخصية المنفصلة عن المصلحة، بينما تتحمل الإدارة الأخطاء المرفقية[cite: 15]." 
-            }
-        ];
+        <!-- Lessons -->
+        <div id="it-lessons" class="block">
+            <div class="text-center mb-16 reveal active">
+                <span class="text-blue-600 font-bold uppercase text-sm bg-blue-100 px-4 py-1 rounded-full">Initiation</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mt-4 mb-4 text-gray-800">Architecture & <span class="bg-gradient-to-r from-blue-600 to-cyan-500 text-gradient">Windows 10</span></h2>
+            </div>
 
-        let state = { q: 0, score: 0 };
-
-        function renderQuestion() {
-            const currentQ = state.q;
-            const qData = questions[currentQ];
-            const progress = (currentQ / questions.length) * 100;
-            
-            document.getElementById('progress-tax').style.width = `${progress}%`;
-            document.getElementById('progress-text').innerText = `السؤال ${currentQ + 1} من ${questions.length}`;
-            document.getElementById('progress-percentage').innerText = `${Math.round(progress)}%`;
-            document.getElementById('score-tax').innerText = state.score;
-
-            let html = `
-                <div class="fade-in">
-                    <h4 class="text-2xl font-bold text-gray-800 mb-8 leading-relaxed">
-                        <span class="bg-blue-800 text-white px-4 py-1.5 rounded-lg ml-3 text-lg shadow-sm">س${currentQ + 1}</span>
-                        ${qData.q}
-                    </h4>
-                    <div class="space-y-4">
-                        ${qData.options.map((opt, idx) => `
-                            <button onclick="checkAnswer(${idx}, this)" class="quiz-btn w-full p-5 rounded-2xl font-medium text-gray-700 bg-gray-50 flex items-center justify-between text-right hover:bg-white transition-all shadow-sm">
-                                <span class="text-lg">${opt}</span>
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-300 icon-status flex items-center justify-center shrink-0 mr-4"></div>
-                            </button>
-                        `).join('')}
+            <!-- Infographic 1: Le Système -->
+            <div class="info-card p-8 mb-10 reveal">
+                <div class="flex items-center gap-4 mb-6 border-b pb-4">
+                    <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-2xl font-bold text-gray-800">Le Système Informatique</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
+                        <div class="text-4xl mb-4 text-gray-700"><i class="fas fa-server"></i></div>
+                        <h4 class="text-xl font-bold mb-2">Matériel (Hardware)</h4>
+                        <p class="text-gray-600 text-sm">La partie physique et palpable de l'ordinateur (Écran, unité centrale, clavier)[cite: 1].</p>
                     </div>
-                    <div id="fb-box" class="hidden mt-8 p-6 rounded-2xl shadow-sm text-base transform transition-all border-r-4">
-                        <div class="flex items-start">
-                            <i id="fb-icon" class="mt-1 ml-4 text-2xl"></i>
-                            <div>
-                                <strong id="fb-title" class="block mb-2 text-lg font-bold"></strong>
-                                <span id="fb-text" class="text-gray-700 leading-relaxed"></span>
-                            </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200">
+                        <div class="text-4xl mb-4 text-blue-600"><i class="fas fa-code"></i></div>
+                        <h4 class="text-xl font-bold mb-2">Logiciel (Software)</h4>
+                        <p class="text-gray-600 text-sm">La partie immatérielle. Les programmes qui font fonctionner le matériel[cite: 1].</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infographic 2: Composants Internes -->
+            <div class="info-card p-8 mb-10 reveal">
+                <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Les Composants Internes</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    <div class="text-center p-4 rounded-xl border hover:border-orange-200 hover:bg-orange-50 transition-all">
+                        <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center text-orange-500 text-3xl mb-4"><i class="fas fa-microchip"></i></div>
+                        <h4 class="font-bold text-sm">Processeur (CPU)</h4>
+                        <p class="text-xs text-gray-500 mt-2">Le cerveau de la machine. Exécute les instructions[cite: 1].</p>
+                    </div>
+                    <div class="text-center p-4 rounded-xl border hover:border-green-200 hover:bg-green-50 transition-all">
+                        <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center text-green-500 text-3xl mb-4"><i class="fas fa-memory"></i></div>
+                        <h4 class="font-bold text-sm">Mémoire (RAM)</h4>
+                        <p class="text-xs text-gray-500 mt-2">Rapide et temporaire. Stocke les données des logiciels ouverts[cite: 1].</p>
+                    </div>
+                    <div class="text-center p-4 rounded-xl border hover:border-purple-200 hover:bg-purple-50 transition-all">
+                        <div class="w-20 h-20 mx-auto bg-purple-100 rounded-full flex items-center justify-center text-purple-500 text-3xl mb-4"><i class="fas fa-hdd"></i></div>
+                        <h4 class="font-bold text-sm">Disque Dur</h4>
+                        <p class="text-xs text-gray-500 mt-2">Mémoire de masse. Stockage permanent des fichiers[cite: 1].</p>
+                    </div>
+                    <div class="text-center p-4 rounded-xl border hover:border-blue-200 hover:bg-blue-50 transition-all">
+                        <div class="w-20 h-20 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-blue-500 text-3xl mb-4"><i class="fas fa-network-wired"></i></div>
+                        <h4 class="font-bold text-sm">Carte Mère</h4>
+                        <p class="text-xs text-gray-500 mt-2">La colonne vertébrale. Elle relie tous les composants[cite: 1].</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                    <h4 class="font-bold text-center mb-4"><i class="fas fa-mouse mr-2"></i>Les Périphériques</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded-lg border text-center shadow-sm">
+                            <strong class="text-blue-600 block mb-1">Entrée ➡️</strong>
+                            <span class="text-xs text-gray-600">Clavier, Souris, Scanner[cite: 1]</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center shadow-sm">
+                            <strong class="text-green-600 block mb-1">⬅️ Sortie</strong>
+                            <span class="text-xs text-gray-600">Écran, Imprimante, Haut-parleur[cite: 1]</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center shadow-sm">
+                            <strong class="text-purple-600 block mb-1">🔄 Entrée/Sortie</strong>
+                            <span class="text-xs text-gray-600">Clé USB, Disque Dur externe[cite: 1]</span>
                         </div>
                     </div>
                 </div>
-            `;
-            document.getElementById('quiz-container-tax').innerHTML = html;
-            document.getElementById('next-btn-tax').classList.add('hidden');
+            </div>
+
+            <!-- Infographic 3: Langage -->
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <div class="info-card p-8 reveal bg-slate-800 text-white">
+                    <h3 class="text-xl font-bold mb-4"><i class="fas fa-binary text-green-400 mr-2"></i> Le Langage Binaire</h3>
+                    <p class="text-sm text-gray-300 mb-4">L'ordinateur ne comprend que deux états :</p>
+                    <div class="flex justify-around items-center bg-slate-700 p-4 rounded-xl">
+                        <div class="text-center"><span class="text-3xl font-black text-green-400 block">1</span><span class="text-xs">Courant[cite: 1]</span></div>
+                        <div class="text-center"><span class="text-3xl font-black text-red-400 block">0</span><span class="text-xs">Pas de courant[cite: 1]</span></div>
+                    </div>
+                </div>
+                <div class="info-card p-8 reveal">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-weight-hanging text-blue-500 mr-2"></i> Unités de Mesure</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center justify-between bg-gray-50 p-3 rounded-lg"><span class="font-semibold text-gray-700">1 Octet (o)</span> <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-bold">8 bits[cite: 1]</span></li>
+                        <li class="flex items-center justify-between bg-gray-50 p-3 rounded-lg"><span class="font-semibold text-gray-700">1 Kilo-octet (Ko)</span> <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-bold">1024 octets[cite: 1]</span></li>
+                        <li class="flex items-center justify-between bg-gray-50 p-3 rounded-lg"><span class="font-semibold text-gray-700">1 Giga-octet (Go)</span> <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded text-sm font-bold">1024 Mo[cite: 1]</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Infographic 4: Barre des taches & Arborescence -->
+            <div class="info-card p-8 mb-10 reveal">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Windows 10 : L'Environnement</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="border-2 border-gray-100 p-6 rounded-2xl">
+                        <h4 class="font-bold text-blue-600 mb-4"><i class="fas fa-bars mr-2"></i>La Barre des Tâches</h4>
+                        <ul class="space-y-4 text-sm text-gray-600">
+                            <li><i class="fab fa-windows w-5 text-gray-400"></i> <strong>Menu Démarrer :</strong> Lance les apps, arrête le PC[cite: 2].</li>
+                            <li><i class="fas fa-search w-5 text-gray-400"></i> <strong>Cortana :</strong> Boîte de recherche PC & Web[cite: 2].</li>
+                            <li><i class="fas fa-thumbtack w-5 text-gray-400"></i> <strong>Zone des applications :</strong> Un trait blanc = application ouverte[cite: 2].</li>
+                            <li><i class="fas fa-bell w-5 text-gray-400"></i> <strong>Zone de notification :</strong> Heure, réseau, batterie[cite: 2].</li>
+                        </ul>
+                    </div>
+                    <div class="border-2 border-gray-100 p-6 rounded-2xl flex flex-col justify-center">
+                        <h4 class="font-bold text-green-600 mb-6 text-center"><i class="fas fa-sitemap mr-2"></i>L'Arborescence</h4>
+                        <div class="flex items-center justify-center gap-3 text-center text-sm font-semibold">
+                            <div><i class="fas fa-hdd text-3xl mb-2 block text-gray-600"></i>Disque<br><span class="text-[10px] text-gray-400 font-normal">Armoire</span></div>
+                            <i class="fas fa-chevron-right text-gray-300"></i>
+                            <div><i class="fas fa-folder text-yellow-400 text-3xl mb-2 block"></i>Dossier<br><span class="text-[10px] text-gray-400 font-normal">Tiroir</span></div>
+                            <i class="fas fa-chevron-right text-gray-300"></i>
+                            <div><i class="fas fa-file-word text-blue-500 text-3xl mb-2 block"></i>Fichier<br><span class="text-[10px] text-gray-400 font-normal">Feuille[cite: 2]</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infographic 5: Copier Coller -->
+            <div class="info-card p-8 mb-10 reveal">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6"><i class="fas fa-clipboard-list text-orange-500 mr-2"></i> Le Copier-Coller (Presse-papier)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-700">
+                                <th class="p-3 border-b-2 border-gray-200 rounded-tl-lg">Action</th>
+                                <th class="p-3 border-b-2 border-gray-200">Raccourci</th>
+                                <th class="p-3 border-b-2 border-gray-200 rounded-tr-lg">Résultat</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-blue-600">Copier</td>
+                                <td class="p-3"><kbd class="bg-white border px-2 py-1 rounded shadow-sm font-mono text-xs">Ctrl + C</kbd></td>
+                                <td class="p-3">Duplique l'élément dans le presse-papier. <strong>L'original reste à sa place[cite: 2].</strong></td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-red-500">Couper</td>
+                                <td class="p-3"><kbd class="bg-white border px-2 py-1 rounded shadow-sm font-mono text-xs">Ctrl + X</kbd></td>
+                                <td class="p-3">Déplace l'élément dans le presse-papier. <strong>L'original disparaît[cite: 2].</strong></td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-green-600">Coller</td>
+                                <td class="p-3"><kbd class="bg-white border px-2 py-1 rounded shadow-sm font-mono text-xs">Ctrl + V</kbd></td>
+                                <td class="p-3">Place l'élément dans le nouveau dossier de destination[cite: 2].</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold text-purple-600">Annuler</td>
+                                <td class="p-3"><kbd class="bg-white border px-2 py-1 rounded shadow-sm font-mono text-xs">Ctrl + Z</kbd></td>
+                                <td class="p-3">Raccourci magique pour annuler la dernière action[cite: 2].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 reveal">
+                <button onclick="switchTab('it', 'quiz')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all transform hover:-translate-y-1">
+                    Passer au Test Interactif <i class="fas fa-play ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="it-quiz" class="hidden">
+            <div class="flex justify-between items-center mb-8 reveal">
+                <div><h2 class="text-3xl font-extrabold text-gray-800">Évaluation Interactive</h2></div>
+                <div class="bg-white px-6 py-3 rounded-2xl border border-gray-200 flex items-center shadow-sm">
+                    <div class="flex flex-col text-right mr-4">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase">Score</span>
+                        <span class="text-3xl font-black text-gray-800"><span id="score-it">0</span></span>
+                    </div>
+                    <i class="fas fa-trophy text-yellow-400 text-3xl"></i>
+                </div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3 mb-8">
+                <div id="progress-it" class="bg-blue-600 h-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div id="quiz-container-it" class="info-card p-6 sm:p-10 reveal"></div>
+            <button id="next-btn-it" onclick="nextQuestion('it')" class="hidden mt-6 bg-gray-800 text-white font-bold py-4 px-8 rounded-full">Question Suivante <i class="fas fa-arrow-right ml-3"></i></button>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // ---------------- DATA (20 TAX + 15 IT Questions) ----------------
+        const data = {
+            tax: [
+                { q: "الضريبة على أرباح الشركات (IBS) تُعد ضريبة:", options: ["شهرية تفرض على المداخيل.", "سنوية تفرض على الأرباح الصافية للأشخاص المعنويين.", "غير مباشرة تدمج في الأسعار."], a: 1, fb: "IBS هي ضريبة سنوية على الربح الجبائي للأشخاص المعنويين[cite: 5, 23]." },
+                { q: "ما هو معدل الـ IBS المطبق على نشاط إنتاج السلع؟", options: ["19%", "23%", "26%"], a: 0, fb: "معدل إنتاج السلع هو 19%[cite: 5, 23]." },
+                { q: "يخضع بيع العقارات لرسم تسجيل نسبي قدره:", options: ["2%", "5%", "10%"], a: 1, fb: "يخضع بيع العقارات لرسم نسبي قدره 5%[cite: 7, 22]." },
+                { q: "الضرائب غير المباشرة تفرض على:", options: ["الدخل والثروة مباشرة.", "عمليات التبادل التجاري والاستهلاك (تدمج في الأسعار).", "الشركات التجارية فقط."], a: 1, fb: "الضرائب غير المباشرة تستهدف عمليات الاستهلاك وتُدمج في الأسعار[cite: 11, 20]." },
+                { q: "ما هي المعدلات المطبقة في الرسم على القيمة المضافة (TVA)؟", options: ["19% و 10%", "19% و 9%", "17% و 7%"], a: 1, fb: "المعدل العادي هو 19% والمعدل المخفض هو 9%[cite: 14, 16]." },
+                { q: "متى يتم تحصيل التأجيل القانوني للدفع عند المنازعة؟", options: ["بدفع 20% من الحقوق المتنازع عليها.", "بدفع 50% من إجمالي الديون.", "بدون دفع، يمنح تلقائياً عند الشكوى."], a: 0, fb: "عند اختيار هذه الطريقة يُحسب المبلغ الواجب دفعه بنسبة 20% من الحقوق المتنازع عليها[cite: 8, 9, 24]." },
+                { q: "في مصلحة الصندوق، يستعمل السجل (H1) لـ:", options: ["الإيرادات عبر الصكوك البريدية (CCP).", "النفقات أو مبالغ الصرف.", "الإيرادات النقدية."], a: 2, fb: "سجل H1 مخصص للصندوق - الإيرادات النقدية[cite: 8, 9, 24]." },
+                { q: "التحقيق المصوب في المحاسبة (VPC) لا تتجاوز مدته عادة:", options: ["شهرين.", "6 أشهر.", "سنة واحدة."], a: 0, fb: "لا تتجاوز مدة التحقيق المصوب شهرين مهما كان رقم الأعمال[cite: 12, 13, 17, 21]." },
+                { q: "منازعة الوعاء تتعلق بـ:", options: ["إجراءات المتابعة والتحصيل.", "أساس الضريبة وتأسيسها وحسابها.", "الحجز التنفيذي على المنقولات."], a: 1, fb: "منازعة الوعاء هي النزاع المتعلق بأساس الضريبة وتأسيسها وحسابها[cite: 10, 19]." },
+                { q: "ما هو الحدث المنشئ لرسم الطابع للعقود المحررة داخل الجزائر؟", options: ["أول استعمال لها.", "تاريخ تحرير العقد فعلياً (تاريخ إنشائه وتوقيعه).", "تسجيل العقد بالمحكمة."], a: 1, fb: "الحدث المنشئ للعقود داخل الجزائر هو تاريخ تحرير العقد فعلياً[cite: 3, 4, 18]." },
+                { q: "كيف يُحسب الطابع النسبي للأوراق التجارية؟", options: ["80 دج لكل ورقة.", "1 دج عن كل 100 دج أو جزء منها.", "2% من الأرباح."], a: 1, fb: "الأوراق التجارية تخضع لنسبة 1 دج عن كل 100 دج أو جزء منها[cite: 3, 4, 18]." },
+                { q: "ماذا يعني التضامن في أداء رسم الطابع؟", options: ["إمكانية مطالبة أي ملزم قانوناً بأداء كامل الرسم.", "الإعفاء من دفع الغرامة.", "دفع جزء متساوٍ فقط."], a: 0, fb: "تستطيع الإدارة مطالبة أي شخص من الملزمين بأداء كامل الرسم[cite: 3, 4, 18]." },
+                { q: "كم تبلغ تسعيرة الطابع الحجمي لورق السجل (0.54 × 0.42 م)؟", options: ["30 دج", "60 دج", "80 دج"], a: 2, fb: "تحدد تسعيرة ورق السجل بـ 80 دج[cite: 3, 4, 18]." },
+                { q: "ما هي المعطيات المطلوبة لاستخراج قسيمة السيارة من الجدول؟", options: ["الوزن، المقاعد، التأمين.", "النوع، القوة الجبائية، تاريخ الوضع في السير.", "اللون، الوقود، التسجيل."], a: 1, fb: "يجب تحديد نوع السيارة، قوتها الجبائية، وتاريخ وضعها في السير[cite: 3, 4, 18]." },
+                { q: "الفرق بين الأخلاق (Morale) والأخلاقيات (Ethique) في الإدارة الجبائية؟", options: ["الأخلاقيات تمثل منهجاً تطبيقياً للقيم في سياق مهني محدد.", "الأخلاق تطبق في العمل والأخلاقيات في المجتمع.", "لا يوجد فرق بينهما."], a: 0, fb: "الأخلاقيات تمثل منهجاً تطبيقياً للقيم لتحقيق غاية معينة في سياق مهني[cite: 15]." },
+                { q: "هل يُسمح لموظف الضرائب بممارسة نشاط مربح خاص؟", options: ["نعم، في أوقات الفراغ.", "يُمنع ذلك باستثناء مهام التكوين، البحث، والإنتاج العلمي.", "نعم، بشرط التصريح به."], a: 1, fb: "يُمنع الجمع بين الوظيفة وأي نشاط مربح خاص مع استثناء مهام البحث والتكوين والإنتاج العلمي[cite: 15]." },
+                { q: "ما هي عقوبة إفشاء السر المهني بالنسبة لعون الضرائب؟", options: ["التوبيخ فقط.", "الحبس والغرامة المالية وفقاً للمادة 301 من قانون العقوبات.", "النقل الإجباري."], a: 1, fb: "عاقب قانون العقوبات مخالفي السر المهني بالحبس والغرامة[cite: 15]." },
+                { q: "الخطأ التأديبي من الدرجة الثالثة أو الرابعة يؤدي إلى:", options: ["التنبيه أو التوبيخ.", "التنزيل في الرتبة، النقل الإجباري، أو التسريح النهائي.", "التوقيف عن العمل لـ 3 أيام."], a: 1, fb: "تطبق عليها عقوبات تشمل التنزيل في الدرجات، النقل الإجباري، والتسريح النهائي[cite: 15]." },
+                { q: "جريمة الرشوة في مجال الصفقات العمومية تصل عقوبتها إلى:", options: ["السجن من 2 إلى 5 سنوات.", "السجن من 10 إلى 20 سنة.", "السجن المؤبد."], a: 1, fb: "تشتد العقوبة في مجال الصفقات العمومية لتصل إلى السجن من 10 إلى 20 سنة[cite: 15]." },
+                { q: "المسؤولية المدنية للموظف الجبائي تعني:", options: ["التعرض لعقوبات جزائية.", "تحمل الموظف المسؤولية عن الأخطاء الشخصية المنفصلة عن المصلحة.", "تحمل الإدارة لجميع الأخطاء."], a: 1, fb: "يتحمل الموظف المسؤولية عن الأخطاء الشخصية المنفصلة عن المصلحة والتي تسبب أضراراً للغير[cite: 15]." }
+            ],
+            it: [
+                { q: "De quoi est composé principalement un système informatique ?", options: ["Écran et clavier.", "Matériel (Hardware) et Logiciel (Software).", "OS et Internet."], a: 1, fb: "Le système est composé de 2 parties: Matériel et Software[cite: 1]." },
+                { q: "Quel composant est le « cerveau » de l'ordinateur ?", options: ["Disque dur", "Carte mère", "Processeur (CPU)"], a: 2, fb: "Le processeur traite les informations et exécute les instructions[cite: 1]." },
+                { q: "Quel est le rôle de la mémoire vive (RAM) ?", options: ["Stocker les fichiers de manière permanente.", "Stocker provisoirement les informations utiles des logiciels.", "Refroidir le micro-processeur."], a: 1, fb: "La RAM stocke provisoirement les informations pour un accès rapide[cite: 1]." },
+                { q: "Quel est le rôle de la carte mère ?", options: ["Centraliser les données et relier tous les éléments.", "Afficher les images.", "Fournir l'énergie électrique."], a: 0, fb: "La carte mère centralise les données et relie tous les éléments[cite: 1]." },
+                { q: "Lequel est un périphérique de sortie ?", options: ["Clavier", "Scanner", "Imprimante"], a: 2, fb: "L'imprimante fait sortir l'information sous forme papier[cite: 1]." },
+                { q: "Quel langage natif utilise l'ordinateur ?", options: ["Décimal", "Binaire", "Hexadécimal"], a: 1, fb: "L'ordinateur ne comprend que le binaire (0 et 1)[cite: 1]." },
+                { q: "À combien équivaut 1 Giga-octet (Go) ?", options: ["1000 Mo", "1024 Ko", "1024 Mo"], a: 2, fb: "1 Go correspond exactement à 1024 Mo[cite: 1]." },
+                { q: "Qu'est-ce qu'un système d'exploitation (OS) comme Windows ?", options: ["Un logiciel de texte.", "Un ensemble de programmes gérant le matériel et lançant les applications.", "Un composant matériel."], a: 1, fb: "L'OS gère le matériel via les pilotes et lance les applications[cite: 2]." },
+                { q: "Qu'est-ce qu'une icône sur le bureau ?", options: ["Un virus.", "Un pictogramme représentant un raccourci.", "Un dossier caché."], a: 1, fb: "Un pictogramme servant de raccourci vers un fichier ou app[cite: 2]." },
+                { q: "Quelle est la fonction de la Corbeille ?", options: ["Accélérer le PC.", "Contenir les objets supprimés (restaurables).", "Supprimer définitivement."], a: 1, fb: "Elle conserve les fichiers supprimés pour pouvoir les restaurer[cite: 2]." },
+                { q: "Quel programme permet de naviguer dans l'arborescence ?", options: ["Panneau de configuration", "L'Explorateur de fichiers", "Le Menu Démarrer"], a: 1, fb: "L'explorateur de fichiers permet de parcourir votre PC[cite: 2]." },
+                { q: "Raccourci clavier pour coller ?", options: ["Ctrl + C", "Ctrl + V", "Ctrl + Z"], a: 1, fb: "Ctrl + V pour coller, Ctrl + C pour copier[cite: 2]." },
+                { q: "Différence entre « Copier » et « Couper » ?", options: ["Aucune.", "Le couper déplace le fichier (l'original disparaît).", "Le couper supprime."], a: 1, fb: "Couper (Ctrl + X) déplace les données, l'original disparaît[cite: 2]." },
+                { q: "À quoi sert Cortana ?", options: ["Rechercher sur le PC et le web.", "Formater le disque.", "Protéger des virus."], a: 0, fb: "Cortana est la boîte de recherche de Windows 10[cite: 2]." },
+                { q: "Comment est structuré le rangement sur un disque dur ?", options: ["En boucle.", "En réseau.", "En arborescence (dossiers et sous-dossiers)."], a: 2, fb: "La structure est en arborescence, semblable à une armoire[cite: 2]." }
+            ]
+        };
+
+        let state = { tax: { q: 0, score: 0 }, it: { q: 0, score: 0 } };
+
+        // ---------------- NAVIGATION ----------------
+        function switchSubject(subject) {
+            document.getElementById('subject-tax').style.display = subject === 'tax' ? 'block' : 'none';
+            document.getElementById('subject-it').style.display = subject === 'it' ? 'block' : 'none';
+            
+            document.getElementById('btn-sub-tax').className = `subject-btn flex-1 md:flex-none px-6 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap ${subject === 'tax' ? 'active' : 'text-gray-600'}`;
+            document.getElementById('btn-sub-it').className = `subject-btn flex-1 md:flex-none px-6 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap font-fr ${subject === 'it' ? 'active' : 'text-gray-600'}`;
+            
+            switchTab(subject, 'lessons');
+            setTimeout(triggerReveals, 50);
         }
 
-        function checkAnswer(selected, btn) {
-            const currentQ = state.q;
-            const qData = questions[currentQ];
-            const buttons = document.querySelectorAll('.quiz-btn');
-            const fbBox = document.getElementById('fb-box');
+        function switchTab(subject, tab) {
+            document.getElementById(`${subject}-lessons`).style.display = tab === 'lessons' ? 'block' : 'none';
+            document.getElementById(`${subject}-quiz`).style.display = tab === 'quiz' ? 'block' : 'none';
+            
+            const btnActive = subject === 'tax' ? 'bg-blue-800 text-white' : 'bg-blue-600 text-white';
+            
+            document.getElementById(`tab-${subject}-lessons`).className = `px-6 py-2.5 rounded-xl font-bold shadow-md transition-all ${tab === 'lessons' ? btnActive : 'bg-white text-gray-600 border border-gray-200'}`;
+            document.getElementById(`tab-${subject}-quiz`).className = `px-6 py-2.5 rounded-xl font-bold shadow-md transition-all ${tab === 'quiz' ? btnActive : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}`;
+            
+            if (tab === 'quiz') {
+                state[subject] = { q: 0, score: 0 };
+                renderQuestion(subject);
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // ---------------- QUIZ LOGIC ----------------
+        function renderQuestion(sub) {
+            const currentQ = state[sub].q;
+            const qData = data[sub][currentQ];
+            const progress = (currentQ / data[sub].length) * 100;
+            
+            document.getElementById(`progress-${sub}`).style.width = `${progress}%`;
+            document.getElementById(`score-${sub}`).innerText = state[sub].score;
+
+            let html = `
+                <div class="fade-in">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6 leading-relaxed">${qData.q}</h4>
+                    <div class="space-y-4">
+                        ${qData.options.map((opt, idx) => `
+                            <button onclick="checkAnswer('${sub}', ${idx}, this)" class="quiz-btn w-full p-5 rounded-2xl font-semibold text-gray-700 bg-gray-50 flex items-center justify-between text-lg ${sub==='tax'?'text-right':'text-left'}">
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="fb-box-${sub}" class="hidden mt-6 p-6 rounded-2xl shadow-sm text-base">
+                        <strong id="fb-title-${sub}" class="block mb-2 text-lg font-bold"></strong>
+                        <span id="fb-text-${sub}"></span>
+                    </div>
+                </div>
+            `;
+            document.getElementById(`quiz-container-${sub}`).innerHTML = html;
+            document.getElementById(`next-btn-${sub}`).classList.add('hidden');
+        }
+
+        function checkAnswer(sub, selected, btn) {
+            const currentQ = state[sub].q;
+            const qData = data[sub][currentQ];
+            const buttons = document.querySelectorAll(`#quiz-container-${sub} .quiz-btn`);
+            const fbBox = document.getElementById(`fb-box-${sub}`);
             
             buttons.forEach(b => b.disabled = true);
             fbBox.classList.remove('hidden');
             
             const isCorrect = selected === qData.a;
-            if (isCorrect) state.score += 10;
+            if (isCorrect) state[sub].score += 10;
             
-            // UI Styling for correct/wrong
             btn.classList.add(isCorrect ? 'correct-ans' : 'wrong-ans');
-            btn.querySelector('.icon-status').innerHTML = isCorrect ? '<i class="fas fa-check text-xs"></i>' : '<i class="fas fa-times text-xs"></i>';
-            btn.querySelector('.icon-status').classList.add('border-transparent', isCorrect ? 'bg-green-600' : 'bg-red-600', 'text-white');
+            if (!isCorrect) buttons[qData.a].classList.add('correct-ans');
             
-            if (!isCorrect) {
-                const correctBtn = buttons[qData.a];
-                correctBtn.classList.add('correct-ans');
-                correctBtn.querySelector('.icon-status').innerHTML = '<i class="fas fa-check text-xs"></i>';
-                correctBtn.querySelector('.icon-status').classList.add('border-transparent', 'bg-green-600', 'text-white');
-            }
-            
-            fbBox.className = `mt-8 p-6 rounded-2xl shadow-md text-base border-r-4 ${isCorrect ? 'bg-green-50 border-green-500 text-green-900' : 'bg-red-50 border-red-500 text-red-900'}`;
-            document.getElementById('fb-icon').className = `mt-1 ml-4 text-2xl ${isCorrect ? 'fas fa-check-circle text-green-600' : 'fas fa-times-circle text-red-600'}`;
-            document.getElementById('fb-title').innerText = isCorrect ? "إجابة صحيحة وموفقة!" : "إجابة غير دقيقة!";
-            document.getElementById('fb-text').innerText = qData.fb;
-            
-            document.getElementById('next-btn-tax').classList.remove('hidden');
-            document.getElementById('score-tax').innerText = state.score;
+            fbBox.className = `mt-6 p-6 rounded-2xl shadow-sm text-base ${isCorrect ? 'bg-green-50 border-green-500 text-green-800' : 'bg-red-50 border-red-500 text-red-800'}`;
+            fbBox.style.borderRightWidth = sub === 'tax' ? '4px' : '0';
+            fbBox.style.borderLeftWidth = sub === 'it' ? '4px' : '0';
+
+            document.getElementById(`fb-title-${sub}`).innerText = isCorrect ? (sub==='tax'?"إجابة صحيحة!":"Bonne réponse !") : (sub==='tax'?"إجابة خاطئة!":"Incorrect !");
+            document.getElementById(`fb-text-${sub}`).innerText = qData.fb;
+            document.getElementById(`next-btn-${sub}`).classList.remove('hidden');
+            document.getElementById(`score-${sub}`).innerText = state[sub].score;
         }
 
-        function nextQuestion() {
-            state.q++;
-            if (state.q < questions.length) {
-                renderQuestion();
-                window.scrollTo(0, 0);
+        function nextQuestion(sub) {
+            state[sub].q++;
+            if (state[sub].q < data[sub].length) {
+                renderQuestion(sub);
             } else {
-                document.getElementById('progress-tax').style.width = '100%';
-                document.getElementById('progress-percentage').innerText = '100%';
-                document.getElementById('progress-text').innerText = 'انتهى التقييم!';
-
-                const max = questions.length * 10;
-                let msg = "", icon = "", color = "";
+                document.getElementById(`progress-${sub}`).style.width = '100%';
+                const max = data[sub].length * 10;
+                const msg = sub === 'tax' ? "النتيجة النهائية!" : "Bilan de l'Évaluation !";
+                const btnTxt = sub === 'tax' ? "إعادة التقييم" : "Recommencer";
                 
-                if (state.score === max) { msg = "ممتاز جداً! أنت مستعد تماماً لاجتياز الامتحان المهني بنجاح ومتمكن من جميع المقاييس."; icon = "fa-trophy"; color = "text-yellow-500"; } 
-                else if (state.score >= (max / 2)) { msg = "عمل جيد ومجهود محترم! تحتاج فقط لمراجعة سريعة لبعض التفاصيل والآجال."; icon = "fa-medal"; color = "text-blue-500"; } 
-                else { msg = "لا تيأس! أعد قراءة ملخص الإنفوجرافيك وركز على قواعد الحساب والآجال القانونية."; icon = "fa-book-reader"; color = "text-gray-500"; }
-
-                document.getElementById('quiz-container-tax').innerHTML = `
-                    <div class="text-center py-12 fade-in">
-                        <div class="inline-block p-6 rounded-full bg-white shadow-lg mb-6 border-4 border-gray-50">
-                            <i class="fas ${icon} ${color} text-7xl"></i>
-                        </div>
-                        <h2 class="text-4xl font-extrabold text-gray-800 mb-2">النتيجة النهائية</h2>
-                        <p class="text-gray-500 mb-8 text-lg">إليك تقرير أدائك في هذا التقييم الشامل.</p>
-                        
-                        <div class="inline-block bg-gradient-to-b from-white to-gray-50 rounded-3xl p-8 border border-gray-200 shadow-xl mb-8 min-w-[300px]">
-                            <p class="text-sm text-gray-400 uppercase tracking-widest font-bold mb-3">مجموع النقاط</p>
-                            <p class="text-7xl font-black text-blue-800 drop-shadow-sm" dir="ltr">${state.score}<span class="text-3xl text-gray-300">/${max}</span></p>
-                        </div>
-                        
-                        <p class="text-xl text-gray-700 mb-10 px-4 max-w-2xl mx-auto">${msg}</p>
-                        
-                        <div class="flex justify-center gap-4">
-                            <button onclick="switchTab('quiz')" class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-10 rounded-xl shadow-lg transition duration-300 flex items-center">
-                                <i class="fas fa-redo-alt ml-3"></i> إعادة التقييم
-                            </button>
-                        </div>
+                document.getElementById(`quiz-container-${sub}`).innerHTML = `
+                    <div class="text-center py-10 fade-in">
+                        <i class="fas fa-medal text-yellow-500 text-7xl mb-6"></i>
+                        <h2 class="text-4xl font-extrabold mb-4 text-gray-800">${msg}</h2>
+                        <p class="text-6xl font-black text-blue-600 mb-10" dir="ltr">${state[sub].score}<span class="text-4xl text-gray-300">/${max}</span></p>
+                        <button onclick="switchTab('${sub}', 'quiz')" class="bg-gray-800 text-white py-4 px-10 rounded-full font-bold hover:bg-black transition-all">${btnTxt}</button>
                     </div>
                 `;
-                document.getElementById('next-btn-tax').classList.add('hidden');
-                window.scrollTo(0, 0);
+                document.getElementById(`next-btn-${sub}`).classList.add('hidden');
             }
         }
 
-        // --- SCROLL ANIMATIONS ---
+        // ---------------- SCROLL REVEAL ----------------
         function triggerReveals() {
             document.querySelectorAll('.reveal').forEach(reveal => {
                 if (reveal.getBoundingClientRect().top < window.innerHeight - 50) reveal.classList.add('active');
@@ -504,9 +554,6 @@
         }
         window.addEventListener('scroll', triggerReveals);
         setTimeout(triggerReveals, 100);
-        
-        // Init
-        renderQuestion();
     </script>
 </body>
 </html>
